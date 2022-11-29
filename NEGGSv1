@@ -1,9 +1,88 @@
-/**
+/**                                                            
+  _   _ ______ _____  _____  _____   _______    _              
+ | \ | |  ____/ ____|/ ____|/ ____| |__   __|  | |             
+ |  \| | |__ | |  __| |  __| (___      | | ___ | | _____ _ __  
+ | . ` |  __|| | |_ | | |_ |\___ \     | |/ _ \| |/ / _ \ '_ \ 
+ | |\  | |___| |__| | |__| |____) |    | | (_) |   <  __/ | | |
+ |_| \_|______\_____|\_____|_____/     |_|\___/|_|\_\___|_| |_|
+                                                              
+                                                              
+  ____        
+ |  _ \       
+ | |_) |_   _ 
+ |  _ <| | | |
+ | |_) | |_| |
+ |____/ \__, |
+         __/ |
+        |___/ 
+  _______         ______                _____          ____  
+ |__   __|       |  ____|              |  __ \   /\   / __ \ 
+    | | ___ _ __ | |__   __ _  __ _ ___| |  | | /  \ | |  | |
+    | |/ _ \ '_ \|  __| / _` |/ _` / __| |  | |/ /\ \| |  | |
+    | |  __/ | | | |___| (_| | (_| \__ \ |__| / ____ \ |__| |
+    |_|\___|_| |_|______\__, |\__, |___/_____/_/    \_\____/ 
+                         __/ | __/ |                         
+                        |___/ |___/                          
+                                                     ..',,;;:::;;,'.                                                    
+                                                ..,,:cllodxxkkkxxdlc;,'..                                               
+                                             .;:ccccloxk0KXXXXK0Okoc:;;:c:,.                                            
+                                           ,okxlccloxOKXNWWWWWNNX0koc;'',cddc'                                          
+                                         ;xKKklcclodk0KNNWWWWWWNXKOxl:,...;lkko,                                        
+                                       'dKWXklc::clodkOKXXNNNNNXK0kxoc;'...'cxOOo,.                                     
+                                     .c0WWXkl:;;;:clodxkO0000000OOkdol:,'...';ok0Ol.                                    
+                                    ,kNWWKxl:;;;:cclloddxxxkkkkkxxddolc:;,'..';lx00x:.                                  
+                                  .l0WMWXkl:::::clllooodddddddddddddoolc:;,'''';cxO0Ol.                                 
+                                 'dXWMWKkoc::ccllooooodddddddddddddooollc:;,,'',;cdO0Oo'                                
+                               .;xXWMWXkocccclloooddddddddddddddddooooollcc:;,,,,;cdk0Oo,                               
+                              .:kNWMWXOdlcccloooddddddddddddddddooooooolllcc:;;,,,:cdkOkl,                              
+                             .:xXWMWNOdlccllooodddddddddddooddooooooooollllcc:;;,,;:ldkkxl,.                            
+                            .:dKWMWN0dllcllooddddddddddooooooooooooooolllllcc::;;,,;:ldkkdc,.                           
+                           .;o0WMMNKxllclloooddddddddoooooooooooooooollllllccc:;;,,;;codkxoc'                           
+                          .,cxXWMWXkolcclloooddddddooooooooooooooooollllllcccc::;;,,;:loxxxo:'                          
+                          ':o0WMWNOdlcclloodddddddooooooooooooooooolllllllcccc:::;;;;;cldxxdc;.                         
+                         .;cxXWWNKxlcccllooddddddoooooooooooooooollllllllccccc:::;;;,;:codxxo:,.                        
+                        .':lONWWXkocccclooddddddoooooooooolllllllllllllllccccc:::;;;,;;cldxxdl:'                        
+                        ';:dKWWN0dlcccclooddddoooooooollllllllllllllllcccccccc:::;;,,,;:lodxdl:;.                       
+                       .,;cxXWNKxocccccloodooooolllllllllllllllccccccccccccccc:::;,,,,;:cldddoc;'.                      
+                       .,;lOXNKkolc::cloooooddolcccccccccccccccccccccc::cccccc::;;,,,,;:clodddc;,.                      
+                      .',:o0XXOdlcc:cclooddoooooc:;;;;:::::::::::::::::cccc:cc::;,,,,,;:clodddl:,'.                     
+                      .',;lkOOxolcccccldxdollllllc;''',,,,;;;;;;;;;;:ccc::::::cc:;,,,,;:clodddoc,,.                     
+                     ..'',;coooolccccc::clllccccccc;'...''',,,,,,,;cll::::::cccc;,,,,;;:clodddoc;,'                     
+                     .'',,:clooollccc::;;;:ccccccccc:'......'''';cllc:::::cc:;,''',,;;:cclodddol:,,.                    
+                     .',,;:cloooollccc::;;,,;cccc:::::;......',colc:;::::::;'''',,,;;::cclooddol:,,.                    
+                     .,,;;:cloooolllcc:::;;,',;:::::::::,..,:cllc:;;::::;,''''',,;;:::cccllooool:,,'                    
+                     .,;;::cloooooollccc::;;,''';:::::::::clolc:::::::;''.''',,,;;:::ccclllloolc:,;'                    
+                     ';;;:cllooddooolllcc::;;,''.';::::cclllcc::::::,'...''',,,;;:::ccclllllllcc:;;,.                   
+                     ';;::cloodddddooolllcc:;;,''..';cclllccccc:c:,.....''',,;;:::cccllllloollc::;;,.                   
+                     ':::clooddddddddooollcc::;,''..,cclcccccccll;......'',,;;::cccllllooooolllc:::;.                   
+                     '::clloddxxxxxdddddoollcc:;,',;::cccccccccllc;......',;;::ccllloooooooooolllcc;.                   
+                     ':clloodxxxxxxxxddddooollc:;;:c:cccclllcccclllc;.....',::clllooooooddddoooooll,                    
+                     .clloodxxxxxxxxxxxddddoolccccccccccc::ccccccclll:,....,;clloooodddddddddoooool'                    
+                     .:lloddxxxxxxxxxxxddddoollllccclll:,..,;:cccclllll:,...,:looodddddddddddoooooc.                    
+                      ,lloddxxxxxxxxxxxdddoolllllllllc;.....'';clllllllll:'.';cloddddddddddddooooo:                     
+                      .;lodddxxxxxxxxxdddoooolllllll:'..''',,,;:clllllloolc:,,:oddddddddddddoooool'                     
+                       'llodddddxxdddddoooooolllol:,''',,;;;;;:::cllllloooooc:loddddddddddddooooo,                      
+                        ;llooddddddddoodddooooooc:,,;;;:::cccccccclloooooooooooddddddddddooooooo:.                      
+                         ,llooddddddoooooooooolc:;:cccccclllllllllllloooooooodddddddddddoooooooc.                       
+                         .;lllooooooooooooooolccclllllllllooooooooooooooooodddddddddoooooooool:.                        
+                          .,clllooooooooooolllllllloooooooooooooooooooddddddoooooooooooooooll:.                         
+                            ':lllllllllllloolllllooooooooooooooooooooooooddoooooooooooooolol,                           
+                             .;cccllllllllllllllooooooooooooooooooooooooooooooooooooooolll:.                            
+                               .;cccccllllllllllllooooooooooooooooooooooooooooooolllllllc,.                             
+                                .';cccccccclllllllllllooooooooooooooooooooooolllllllllc;.                               
+                                   .;:ccccccccclllllllllllllllllllllllllllllllllllllc,.                                 
+                                     .';::cccccccccccllllllllllllllllllllllllllllc;..                                   
+                                        ..,;:::ccccccccccccccccccccccccccccclc:,'.                                      
+                                           ..',;;::::::::cccccccccccccccc:;,'..                                         
+                                                ...',,;;;:::::::::;;;,''..                                              
+                                                        .........                                                       
+                                                                                                                                                                                                                                                                                                                                                                     
     * NEGGS token is the governance and utility token for the TenEggsDAO project, 
-    * a DeFi ecosystem and NFT club. Each transaction generates 
-    * static token rewards to holders through reflection, Liquidity Pool acquisition and token burns. 
-    * Additionally a small portion of the transaction fees will
-    * go towards funding the development of the TenEggsDAO Treasury Fund, to ensure project longevity.
+    * a DeFi ecosystem and NFT club. Each transaction generates static token rewards to
+    * holders through reflection, Liquidity Pool acquisition and token burns. 
+    * Additionally a small portion of the transaction fees will go towards funding the
+    * development of the TenEggsDAO Treasury Fund, to ensure project longevity.
+    * Buy NeggsFTs. Earn NEGGS airdrops. Vote with NEGGS.
     *
     * Telegram: https://t.me/teneggsdao
     * Twitter: https://twitter.com/teneggsdao
