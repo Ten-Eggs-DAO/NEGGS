@@ -1,0 +1,19 @@
+pragma solidity ^0.6.0;
+
+import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
+
+contract SkimUniswapV2Pair {
+    // Address of the Uniswap V2 pair ERC20 token
+    IUniswapV2Pair pair;
+
+    constructor(address _pair) public {
+        // Set the address of the pair
+        pair = IUniswapV2Pair(_pair);
+    }
+
+    // Function that calls the "skim" function of the pair
+    function skim() public {
+        // Call the "skim" function of the pair
+        pair.skim();
+    }
+}
