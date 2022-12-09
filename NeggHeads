@@ -1,0 +1,33 @@
+pragma solidity ^0.8.0;
+
+import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC721/ERC721.sol";
+
+contract NeggHeads is ERC721 {
+    // The maximum number of NeggHeads that can be minted
+    uint256 public constant MAX_SUPPLY = 10000;
+
+    // The number of NeggHeads that have been minted
+    uint256 private _currentSupply = 0;
+
+    // The random traits for each NeggHead
+    mapping(uint256 => (uint256, uint256, uint256, uint256)) private _neggHeads;
+
+    // The rarity of each NeggHead
+    mapping(uint256 => uint256) private _rarity;
+
+    // Mints a new NeggHead with the specified traits and rarity
+    function mint(uint256 face, uint256 color, uint256 eyes, uint256 mouth, uint256 rarity) public {
+        require(_currentSupply < MAX_SUPPLY, "Maximum supply reached");
+        _currentSupply++;
+        _neggHeads[_currentSupply] = (face, color, eyes, mouth);
+        _rarity[_currentSupply] = rarity;
+        _mint(_currentSupply);
+    }
+
+    // Returns the traits and rarity of the specified NeggHead
+    function getNeggHead(uint256 id) public view returns (uint256, uint256, uint256, uint256, uint256) {
+        (uint256 face, uint256 color, uint256 eyes, uint256 mouth) = _neggHeads[id];
+        return (face, color, eyes, mouth, _rarity[id]);
+    }
+}
+
