@@ -1,0 +1,64 @@
+pragma solidity ^0.8.0;
+
+import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC1155/ERC1155.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/token/ERC20/SafeERC20.sol";
+
+contract StakingContract {
+  ERC1155 public stakingToken;
+  SafeERC20 public rewardToken;
+  mapping(address => uint256) public rewardBalances;
+
+  // constructor to initialize the staking and reward tokens
+  constructor(address stakingTokenAddress, address rewardTokenAddress) public {
+    stakingToken = ERC1155(stakingTokenAddress);
+    rewardToken = SafeERC20(rewardTokenAddress);
+  }
+
+  // function to allow users to stake their ERC1155 tokens
+  function stake(uint256[] memory id, uint256[] memory amount) public {
+    // ensure the caller has sufficient balance of the staking token
+    require(stakingToken.balanceOf(msg.sender) >= amount, "Insufficient balance of staking token");
+
+    // transfer the staked tokens from the caller to the contract
+    stakingToken.safeBatchTransferFrom(msg.sender, address(this), id, amount);
+  }
+
+  // function to distribute rewards to stakers
+  function distributeRewards() public {
+    // calculate the total amount of staked tokens
+    uint256 totalStaked = stakingToken.balanceOf(address(this));
+
+    // calculate the reward amount per token based on the total staked amount
+    uint256 rewardPerToken = rewardToken.balanceOf(address(this)) / totalStaked;
+
+    // iterate over the staked tokens and distribute rewards to each staker
+    for (uint256 i = 0; i < stakingToken.totalSupply(); i++) {
+      // get the staker and amount of tokens staked for the current index
+      (address staker, uint256 amount) = stakingToken.tokenOfOwnerByIndex(address(this), i);
+
+      // calculate the total reward for the staker
+      uint256 totalReward = rewardPerToken * amount;
+
+      // transfer the reward to the staker
+      rewardToken.safeTransfer(staker, totalReward);
+
+      // update the staker's reward balance in the contract
+      rewardBalances[staker] += totalReward;
+    }
+  }
+
+  // function to allow users to withdraw their staked tokens and rewards
+  function withdraw() public {
+    // check for re-entrancy by storing the current contract address in a local variable
+    address contractAddress = address(this);
+
+    // get the total amount of staked tokens for the caller
+    uint256 totalStaked = stakingToken.balanceOf(contractAddress, msg.sender);
+
+    // transfer the staked tokens from the contract back to the caller
+    stakingToken.safeBatchTransfer(contractAddress, msg.sender, totalStaked);
+
+    // transfer the reward balance for the caller to their account
+    rewardToken.safeTransfer(msg.sender, rewardBalances[msg.sender]);
+
+   
