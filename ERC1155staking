@@ -1,0 +1,67 @@
+pragma solidity ^0.8.10;
+
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+
+contract  is Ownable, ReentrancyGuard {
+
+    event Stake (address indexed tokenOwner,  uint256[][] tokenIds, uint256 time);
+    event Withdraw (address indexed tokenOwner, uint256[][] tokenIds, uint256 time);
+    event ClaimReward (address indexed tokenOwner, uint256 value, uint256 time);
+
+
+    using SafeERC20 for IERC20;
+
+    string CollectionAddress;
+    string RewardAddress;
+    string StakingTime;
+    uint16 StakingReward;
+
+    // Interfaces for ERC20 and ERC1155
+    IERC20 public immutable rewardsToken;
+    IERC1155 public immutable nftCollection;
+
+    // Staker info
+    struct Staker {
+        // Amount of ERC1155 Tokens staked
+        uint256 amountStaked;
+        // Last time of details update for this User
+        uint256 timeOfLastUpdate;
+        // Calculated, but unclaimed rewards for the User. The rewards are
+        // calculated each time the user writes to the Smart Contract
+        uint256 unclaimedRewards;
+    }
+
+    // Rewards per hour per token deposited in wei.
+    // Rewards are cumulated once every hour.
+    uint256 private rewardsPerHour;
+
+    // Mapping of User Address to Staker info
+    mapping(address => Staker) public stakers;
+    // Mapping of Token Ids to staker. Made for the SC to remember
+    // who to send back the ERC1155 Tokens to.
+    mapping(uint256[] => address) public stakerAddress;
+
+    address[] public stakersArray;
+
+    // Constructor function
+    constructor(IERC1155 _nftCollection, 
+      IERC20 _rewardsToken,
+      uint256 _StakingReward
+      // ,address _serviceFeeAddress,
+      // uint256 _serviceCost
+      ) /*payable*/ {
+        nftCollection = _nftCollection;
+        rewardsToken = _rewardsToken;
+        rewardsPerHour = _StakingReward;
+
+      //   payable(_serviceFeeAddress).transfer(_serviceCost);
+    }
+
+    // If address already has ERC1155 Tokens staked, calculate the rewards.
+    // For every new set of Token Ids in param transferFrom user to this Smart Contract,
+    // increment the amountStaked and map msg.sender to the
+****** CODE CUT OFF ON CHATGPT - NEED TO COMPLETE!!! MISSING ABOUT 150 lines
