@@ -766,7 +766,7 @@ contract NEGGS is Context, IERC20, Ownable {
     address[] private _excluded;
    
     uint256 private constant MAX = ~uint256(0);
-    uint256 private _tTotal = 10**6 * 10**9;
+    uint256 private _tTotal = 10**5 * 10**9;
     uint256 private _rTotal = (MAX - (MAX % _tTotal));
     uint256 private _tFeeTotal;
 
@@ -803,10 +803,10 @@ contract NEGGS is Context, IERC20, Ownable {
     
     bool inSwapAndLiquify;
     bool public swapAndLiquifyEnabled;
-    uint256 public _maxTxAmount = 10**6 * 10**9;
+    uint256 public _maxTxAmount = 10**5 * 10**9;
 
-    // With a decimal precision of 9, 10**11 would be 100 NEGGS tokens. Can update with function SetMinTokensToSwapAndLiquify
-    uint256 private numTokensSellToAddToLiquidity = 10**11;
+    // With a decimal precision of 9, 10**10 would be 10 NEGGS tokens. Can update with function SetMinTokensToSwapAndLiquify
+    uint256 private numTokensSellToAddToLiquidity = 10**10;
     
     event UpdatedBanStatus(address user, bool banned);
     event MinTokensBeforeSwapUpdated(uint256 minTokensBeforeSwap);
@@ -1256,7 +1256,7 @@ contract NEGGS is Context, IERC20, Ownable {
     }
    
     function setMaxTxPercent(uint256 maxTxPercent) external onlyOwner() {
-        require(maxTxPercent > 10, "Cannot set transaction amount less than 10 percent!");
+        require(maxTxPercent > 5, "Cannot set transaction amount less than 5 percent!");
         _maxTxAmount = _tTotal.mul(maxTxPercent).div(
             10**2
         );
